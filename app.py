@@ -6,7 +6,7 @@ key = os.environ.get("GOOGLE_API_KEY")
 
 if key:
     genai.configure(api_key=key)
-    model = genai.GenerativeModel('gemini-pro')
+    model = genai.GenerativeModel('gemini-1.5-flash')
     st.title("YUGA MAX AI 🚀")
     
     if "messages" not in st.session_state:
