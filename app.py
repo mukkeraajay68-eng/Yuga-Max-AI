@@ -1,0 +1,32 @@
+import streamlit as st
+import google.generativeai as genai
+import os
+
+key = os.environ.get("GOOGLE_API_KEY")
+
+if key:
+    genai.configure(api_key=key)
+    model = genai.GenerativeModel('gemini-pro')
+    st.title("YUGA MAX AI 🚀")
+    
+    if "messages" not in st.session_state:
+        st.session_state.messages = []
+
+    for message in st.session_state.messages:
+        with st.chat_message(message["role"]):
+            st.markdown(message["content"])
+
+    if prompt := st.chat_input("కన్నయ్య, నీ ప్రశ్న అడుగు..."):
+        st.session_state.messages.append({"role": "user", "content": prompt})
+        with st.chat_message("user"):
+            st.markdown(prompt)
+        try:
+            response = model.generate_content(prompt)
+            with st.chat_message("assistant"):
+                st.markdown(response.text)
+            st.session_state.messages.append({"role": "assistant", "content": response.text})
+        except Exception as e:
+            st.error("Error occurred.")
+else:
+    st.error("API Key missing!")
+  
