@@ -1,1 +1,1 @@
-# Yuga-Max-AI
+# Yuga-Max-Ai
